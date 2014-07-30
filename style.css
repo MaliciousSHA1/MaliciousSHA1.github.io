@@ -1,0 +1,16 @@
+html,body 
+{
+color:#000000;
+background-color:white;
+font-family:sans-serif;
+}
+
+h1
+{
+font-size:275%;
+}
+
+a:link {color:#aa0000; text-decoration:none;}
+a:visited {color:#aa0000; text-decoration:none;}
+a:hover {color:#dd0000; text-decoration:none}
+

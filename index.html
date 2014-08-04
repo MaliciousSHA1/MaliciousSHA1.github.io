@@ -1,78 +1,63 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Malicious SHA-1</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="style.css" rel="stylesheet" type="text/css" media="screen">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Malicious SHA-1</title>
+  <style type="text/css">
+  html,body 
+  {
+  color:#fff;
+  background-color:black;
+  font-family:sans-serif;
+  }
+  
+  h1
+  {
+  font-size:275%;
+  }
+  
+  a:link {color:#f00; text-decoration:none;}
+  a:visited {color:#f00; text-decoration:none;}
+  a:hover {color:#f00; text-decoration:none}
+  </style>
 </head>
 <body>
-<header>
-<h1>Malicious SHA-1</h1>
-<hr />
-</header>
+<div id="header">
+<h1 class="title">Malicious SHA-1</h1>
+</div>
 <nav>
-<big>
-<b>
-<a href="#dl">Downloads</a>
-&nbsp;&nbsp;
-<a href="#co">Contact</a>
-&nbsp;&nbsp;
-<a href="#qa">FAQ</a>
-</b>
-</big>
+<hr />
+<big> <b> <a href="#details">Technical details</a>    <a href="#downloads">Downloads</a>    <a href="#faq">FAQ</a> </b> </big>
 <hr />
 </nav>
-
-<section id="in">
-
-...
-
-by
-
+<p>This is the webpage of the Malicious SHA-1 project, a research project that demonstrates how the security of the <a href="TBD">SHA-1</a> hashing standard can be <em>fully compromised</em> if one slightly tweaks some of the predefined constants in the SHA-1 algorithm. That is, we show that applications using “custom” versions of SHA-1 may include backdoors exploitable by the application designers (and only them). Such “custom” versions are typically found in proprietary systems as a way to personalize the cryptography for a given customer, while retaining the security guarantees of the original algorithm.</p>
+<p>The colliding messages constructed can be valid archives files (RAR or 7zip) such that the content of the two archives can be fully controlled. We also build colliding JPEG files, which can be any two images, as in the example below:</p>
+<div class="figure">
+<img src="" alt="example" /><p class="caption">example</p>
+</div>
+<p>We can also construct <em>colliding executables</em>, which MBR (Master Boot Record) or COM files including arbitrary code. Furthermore, we present <em>polyglot</em> collisions, that is, two distinct files that are each both valid MBR code, RAR archives, and shell script; and such that the respective content of each of those three file formats can be fully controlled, independently of the other formats.</p>
+<p>Implications of this research are discussed in our <a href="#faq">FAQ</a>.</p>
+<p>The Malicious SHA-1 project is a joint work of</p>
 <ul>
-<li>
-<a href="https://code.google.com/p/corkami/">Ange Albertini</a>
-</li>
-<li>
-<a href="https://131002.net">Jean-Philippe Aumasson</a>
-</li>
-<li>
-<a href="">Maria Eichlseder</a>
-</li>
-<li>
-<a href="">Florian Mendel</a>
-</li>
-<li>
-<a href="">Martin Schlaeffer</a>
-</li>
+<li><a href="https://code.google.com/p/corkami/">Ange Albertini</a></li>
+<li><a href="https://131002.net">Jean-Philippe Aumasson</a></li>
+<li><a href="">Maria Eichlseder</a></li>
+<li><a href="">Florian Mendel</a></li>
+<li><a href="">Martin Schlaeffer</a></li>
 </ul>
-
-</section>
-
-<section id="dl">
-<h2>Downloads</h2>
-
-</section>
-
-<section id="co">
-<h2>Contact</h2>
-
-</section>
-
-<section id="qa">
-<h2>FAQ</h2>
-
-<p>
-<b>Q:
-...
-</b>
-</p>
-<p>
-<b>A:</b>
-..
-</p>
-
-</section>
-
-
+<h2 id="technical-details">Technical details</h2>
+<name ="details"/>
+<p>The security of a cryptographic hash function such as SHA-1 relies on the practical impossibility to find collisions, that is, distinct messages having the same hash value. We thus show that, with only minor tweaks of the SHA-1 specifications (namely, about 40 bits of the 128-bit predefined constants),</p>
+<p>Full details can be found in the <a href="malsha1-yyyymmdd.pdf">research paper</a>.</p>
+<h2 id="downloads">Downloads</h2>
+<name ="downloads"/>
+<h2 id="faq">FAQ</h2>
+<name ="faq"/>
+<h3 id="question">question</h3>
+<p>answer</p>
+<h3 id="question-1">question</h3>
+<p>answer</p>
+</body>
 </html>

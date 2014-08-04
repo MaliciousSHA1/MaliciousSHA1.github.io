@@ -71,10 +71,42 @@ Full details can be found in the [research paper](malsha1-yyyymmdd.pdf).
 ## FAQ
 <name ="faq"/>
 
-### question
+### What are the implications for SHA-1's security?
 
-answer
+None. 
 
-### question
+The differential cryptanalysis techniques used to find our collisions
+are inspired and derived from the best known attacks on the original
+SHA-1, and do not lead to improved attacks on SHA-1 (as far as we can
+tell).
 
-answer
+### Did NSA use this trick when creating SHA-1 in 1995?
+
+We believe this is unlikely, for
+
+1. Our results rely on state-of-the-art differential cryptanalysis
+research, as of 2014, based on techniques that were only publicly
+developed since around 2004
+
+2. Just before SHA-1, NSA designed SHA-0, for which weaknesses were
+quickly identified by the research community and actual collisions
+presented later, in 1998; this negligence does not suggest extraordinary
+cryptanalysis abilities from NSA back then
+
+
+### Can you do the same for SHA-256?
+
+Not at the moment.
+
+[SHA-256]() is a much different case, for
+
+1. SHA-256 uses 64 distinct constants for each of its 64 steps, whereas
+SHA-1 uses 4 distinct constants for each 20-step "round" of its 80-step
+construction. This provides much more freedom to sabotage the algorithm,
+however this will likely imply many more differences (in terms of
+Hamming weight) than in the case of SHA-1.
+
+2. Whereas theoretical attacks are known on the full, 80-step, SHA-1,
+the best known collision attacks on SHA-256 are on [31 steps only](TBD),
+of 64 steps in total. It may thus be difficult to find a 64-step
+characteristics exploitable to build a malicious SHA-256.

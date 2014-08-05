@@ -223,10 +223,10 @@ For example, we constructed a malicious SHA-1 instance for which we can build co
 ## Downloads
 <a name ="downloads"/>
 
-* [Research paper](docs/malsha1.pdf) "Malicious Hashing: Eve's Variant of SHA-1",
+* [Research paper](doc/malsha1.pdf) "Malicious Hashing: Eve's Variant of SHA-1",
   published in the proceedings of Selected Areas in Cryptography
 
-* [Slides](docs/malsha1_lv.pdf) of the talk "SHA1 backdooring and exploitation" (given at
+* [Slides](doc/malsha1_lv.pdf) of the talk "SHA1 backdooring and exploitation" (given at
   BSidesLV and DEF CON Skytalks)
 
 * Proofs-of-concept:

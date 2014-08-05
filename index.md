@@ -70,9 +70,12 @@ The Malicious SHA-1 project is a joint work of
 * [Ange Albertini](https://code.google.com/p/corkami/) (Corkami, Germany)
 * [Jean-Philippe Aumasson](https://131002.net) (Kudelski Security,
   Switzerland)
-* [Maria Eichlseder]() (Graz University of Technology, Austria)
-* [Florian Mendel]() (Graz University of Technology, Austria)
-* [Martin Schlaeffer]() (Graz University of Technology, Austria)
+* [Maria
+  Eichlseder](http://www.iaik.tugraz.at/content/about_iaik/people/eichlseder_maria/) (Graz University of Technology, Austria)
+* [Florian
+  Mendel](http://www.iaik.tugraz.at/content/about_iaik/people/mendel_florian/) (Graz University of Technology, Austria)
+* [Martin
+  Schlaeffer](http://www.iaik.tugraz.at/content/about_iaik/people/alumni_schlaeffer_martin/index.php) (Graz University of Technology, Austria)
 
 To contact us, please use the address <a
 href="mailto:malicioussha1@131002.net">malicioussha1@131002.net</a>.

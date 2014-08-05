@@ -26,8 +26,9 @@ products with custom cryptography will be interested._
 ## Summary
 
 This is the webpage of the Malicious SHA-1 project, a research project
-that demonstrates how the security of the SHA-1 hashing standard
-can be **fully compromised** if one slightly tweaks some of the predefined
+that demonstrates how the security of the
+[SHA-1](http://en.wikipedia.org/wiki/SHA-1) hashing standard can be
+**fully compromised** if one slightly tweaks some of the predefined
 constants in the SHA-1 algorithm.
 That is, we show that systems using "custom" versions of SHA-1 may
 include backdoors exploitable by the designers.
@@ -55,7 +56,7 @@ security and cryptography conferences:
 
 * BSidesLV (Aug 5; Las Vegas, USA)
 * DEF CON Skytalks (Aug 9; Las Vegas, USA)
-* Selected Areas in Cryptography (Aug ??; ???, Canada)
+* Selected Areas in Cryptography (Aug 14-15 Montreal Canada)
 
 Implications of this research are discussed in our [FAQ](#faq). 
 More details are given [below](#details), and a full description of our
@@ -69,15 +70,12 @@ The Malicious SHA-1 project is a joint work of
 * [Ange Albertini](https://code.google.com/p/corkami/) (Corkami, Germany)
 * [Jean-Philippe Aumasson](https://131002.net) (Kudelski Security,
   Switzerland)
-* [Maria Eichlseder]() (Technical University Graz, Austria)
-* [Florian Mendel]() (Technical University Graz, Austria)
-* [Martin Schlaeffer]() (Technical University Graz, Austria)
+* [Maria Eichlseder]() (Graz University of Technology, Austria)
+* [Florian Mendel]() (Graz University of Technology, Austria)
+* [Martin Schlaeffer]() (Graz University of Technology, Austria)
 
-with Ange being the main contributor of the exploitation part,
-Jean-Philippe being the main contributor of the theoretical part, and
-the TU Graz researchers being authors of the core results, namely the
-differential cryptanalysis part.
-
+To contact us, please use the address <a
+href="mailto:malicioussha1@131002.net">malicioussha1@131002.net</a>.
 
 ## Details
 
@@ -280,7 +278,7 @@ cryptanalysis abilities from NSA back then
 
 Not at the moment.
 
-SHA-256 is a much different case, for
+[SHA-256](http://en.wikipedia.org/wiki/SHA-2) is a much different case, for
 
 1. SHA-256 uses 64 distinct constants for each of its 64 steps, whereas
 SHA-1 uses 4 distinct constants for each 20-step "round" of its 80-step
@@ -289,6 +287,11 @@ however this will likely imply many more differences (in terms of
 Hamming weight) than in the case of SHA-1.
 
 2. Whereas theoretical attacks are known on the full, 80-step, SHA-1,
-the best known collision attacks on SHA-256 are on [31 steps only](TBD),
+the best known collision attacks on SHA-256 are on [31 steps
+only](https://online.tugraz.at/tug_online/voe_main2.getvolltext?pCurrPk=69018),
 of 64 steps in total. It may thus be difficult to find a 64-step
 characteristics exploitable to build a malicious SHA-256.
+
+<hr/>
+
+_modified: 2014-08-05_

@@ -18,18 +18,23 @@
 <hr />
 </nav>
 
+_**TL;DR**: If the four 32-bit constants of SHA-1 can be modified, then
+exploitable collisions can be constructed. No need to panic, this
+doesn't affect the original SHA-1. However, vendors and customers of
+products with custom cryptography will be interested._
+
 ## Summary
 
 This is the webpage of the Malicious SHA-1 project, a research project
 that demonstrates how the security of the SHA-1 hashing standard
 can be **fully compromised** if one slightly tweaks some of the predefined
 constants in the SHA-1 algorithm.
-That is, we show that applications using "custom" versions of SHA-1 may
-include backdoors exploitable by the application designers (and only
-them).
-Such "custom" versions are typically found in proprietary systems as a
-way to personalize the cryptography for a given customer, while
-retaining the security guarantees of the original algorithm.
+That is, we show that systems using "custom" versions of SHA-1 may
+include backdoors exploitable by the designers.
+Such custom versions of cryptographic standards are typically found in
+proprietary systems as a way to personalize the cryptography for a given
+customer, while retaining the security guarantees of the original
+algorithm.
 
 The colliding messages constructed can be valid archives files (RAR or
 7zip) such that the content of the two archives can be fully controlled.
@@ -38,7 +43,7 @@ the example below (images were chosen at random):
 
 <img src="img/collision.png" width=500/>
 
-We can also construct **colliding executables**, which MBR (Master Boot
+We can also construct **colliding executables**, with MBR (Master Boot
 Record) or COM files including arbitrary code.
 Furthermore, we present **polyglot** malicious SHA-1 instances, that is,
 for which the designer can create
@@ -50,11 +55,11 @@ security and cryptography conferences:
 
 * BSidesLV (Aug 5; Las Vegas, USA)
 * DEF CON Skytalks (Aug 9; Las Vegas, USA)
-* Selected Areas in Cryptography a.k.a. SAC (Aug ??; ???, Canada)
+* Selected Areas in Cryptography (Aug ??; ???, Canada)
 
 Implications of this research are discussed in our [FAQ](#faq). 
 More details are given [below](#details), and a full description of our
-work is reported in the [research paper](malsha1-yyyymmdd.pdf).
+work is reported in the [research paper](#downloads).
 
 
 ## Authors 
@@ -70,10 +75,8 @@ The Malicious SHA-1 project is a joint work of
 
 with Ange being the main contributor of the exploitation part,
 Jean-Philippe being the main contributor of the theoretical part, and
-the TU Graz team being authors of the core results, namely the
+the TU Graz researchers being authors of the core results, namely the
 differential cryptanalysis part.
-
-![LOGOS]()
 
 
 ## Details
@@ -82,12 +85,12 @@ The security of a cryptographic hash function such as SHA-1 relies on
 the practical impossibility of finding collisions, that is, distinct
 messages having the same hash value.
 Denoting the hash function _H_, a collision is thus a pair of distinct
-messages&mdash;not necessarily of same length&mdash;M<sub>1</sub> and
+messages M<sub>1</sub> and
 M<sub>2</sub> such that _H_(M<sub>1</sub>) = _H_(M<sub>2</sub>).
 
 ### SHA-1
 
-SHA-1 is a NIST standard, designed by NSA in 1995, and used everywhere:
+SHA-1 is a NIST standard designed by NSA in 1995 and used everywhere:
 in TLS, SSH, IPsec, etc. as part of encryption, signature, message
 authentication, or key derivation schemes.
 
@@ -103,18 +106,20 @@ According to this definition, **SHA-1 is broken**, since public research
 described collision attacks more than a thousand times faster than the
 birthday attack. However, 
 
-* the actual complexity is unclear, but seems to be greater than
-  2<sup>60</sup>
-* an actual collision has yet to be published
+* the actual complexity of collision attacks on SHA-1 is unclear, but
+  seems to be greater than 2<sup>60</sup>
+* an actual collision for the original SHA-1 has yet to be published
+  (found?)
 
-SHA-1 processes message by compressing iteratively blocks of 512 bits.
+
 
 The known collision attacks are **differential attacks**. These
-introduce differences in the first message block, and control the
+introduce differences in the first message block&mdash;SHA-1 processes
+message by compressing iteratively blocks of 512 bits&mdash;and control the
 propagation of the differences thereby injected in SHA-1's internal
 state in order to "correct" the disturbances thanks to a second message
-block and thus finally obtain a collision&mdash;an internal state now
-free of any difference.
+block and thus finally obtain a collision, thanks to an internal state
+now free of any difference.
 
 
 ### Backdooring 
@@ -135,12 +140,13 @@ respective probabilities for each of the four 20-step rounds:
 
 <img src="img/diff.png" width=700/>
 
-The constants modified are the 32-bit values K<sub>1</sub>,
+The SHA-1 constants modified are the 32-bit values K<sub>1</sub>,
 K<sub>2</sub>, K<sub>3</sub>, and K<sub>4</sub>, which are injected in
 steps 1-20, 21-40, 41-60, and 61-80, respectively. 
 The arithmetic operations of SHA-1 are **not modified**, and the
-malicious versions are **as strong as the original SHA-1** (unless one
-knows the backdoor).
+malicious versions are **as strong as the original SHA-1** (unless,
+obviously, one knows the backdoor, which is at least as hard to retrieve
+as to break SHA-1).
 
 The construction of a malicious SHA-1 then consists in
 
@@ -176,28 +182,32 @@ messages.
 
 Our basic idea to exploit our generator of  malicious SHA-1's is
 depicted below, where the message block M<sub>x</sub> instructs the
-processor unit (archive extractor, image viewer, CPU, shell
+processor unit (archive extractor, image viewer, CPU, command
 interpreter, etc.) to process Payload<sub>x</sub>:
 
 <img src="img/payload.png" width=500/>
 
-This is not straightforward, due to the constraints imposed 
+However, constructing such messages is not straightforward, due to the
+constraints imposed by
 
-* by the **differential characteristics**: differences (only) in the first
+* the **differential characteristics**: differences (only) in the first
   block at predefined positions
 
-* by the **file formats**: 4-byte "magic" signatures at offset 0 are
+* the **file formats**: 4-byte "magic" signatures at offset 0 are
   corrupted by the differences of the characteristic used
 
 The constraints prevent us from finding colliding binaries for the
 common operating systems: PE (Windows), ELF (Linux), Mach-O (Mac).
+Fortunately, some other formats are more flexible.
 
-However, a number of other formats are more flexible.
-A straightforward example is that of two colliding shell scripts, where differences are in the commented garbage, and the subsequent bytes express a condition relative to the value of those bytes:
+A straightforward example is that of two colliding shell scripts, where
+differences are in the commented garbage (including non-printable byte
+values), and the subsequent bytes express a condition relative to the value of those bytes:
 
 <img src="img/shell.png" width=700/>
 
-Note that in the above shell script, we could have included any statements inside the <code>if</code> and <code>else</code>.
+Note that in the above shell script, we could have included any commands
+inside the <code>if</code> and <code>else</code> statements.
 
 We also produced colliding files of the following file formats: **RAR and
 7zip archives** (requiring a 4-byte signature, however this doesn't need
@@ -215,15 +225,11 @@ For example, we constructed a malicious SHA-1 instance for which we can build co
 ## Downloads
 <a name ="downloads"/>
 
-* [Research paper](TBD) "Malicious Hashing: Eve's Variant of SHA-1",
+* [Research paper](docs/malsha1.pdf) "Malicious Hashing: Eve's Variant of SHA-1",
   published in the proceedings of Selected Areas in Cryptography
 
-* [Slides](TBD) of the talk "SHA1 backdooring and exploitation" (given at
+* [Slides](docs/malsha1_lv.pdf) of the talk "SHA1 backdooring and exploitation" (given at
   BSidesLV and DEF CON Skytalks)
-
-* [Slides](TBD) of the talk "Malicious Hashing: Eve's Variant of SHA-1"
-  (given at SAC)
-
 
 * Proofs-of-concept:
 

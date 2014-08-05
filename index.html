@@ -32,18 +32,19 @@
 <big> <b> <a href="#summary">Summary</a>    <a href="#authors">Authors</a>    <a href="#details">Details</a>    <a href="#downloads">Downloads</a>    <a href="#faq">FAQ</a> </b> </big>
 <hr />
 </nav>
+<p><em><strong>TL;DR</strong>: If the four 32-bit constants of SHA-1 can be modified, then exploitable collisions can be constructed. No need to panic, this doesn’t affect the original SHA-1. However, vendors and customers of products with custom cryptography will be interested.</em></p>
 <h2 id="summary">Summary</h2>
-<p>This is the webpage of the Malicious SHA-1 project, a research project that demonstrates how the security of the SHA-1 hashing standard can be <strong>fully compromised</strong> if one slightly tweaks some of the predefined constants in the SHA-1 algorithm. That is, we show that applications using “custom” versions of SHA-1 may include backdoors exploitable by the application designers (and only them). Such “custom” versions are typically found in proprietary systems as a way to personalize the cryptography for a given customer, while retaining the security guarantees of the original algorithm.</p>
+<p>This is the webpage of the Malicious SHA-1 project, a research project that demonstrates how the security of the SHA-1 hashing standard can be <strong>fully compromised</strong> if one slightly tweaks some of the predefined constants in the SHA-1 algorithm. That is, we show that systems using “custom” versions of SHA-1 may include backdoors exploitable by the designers. Such custom versions of cryptographic standards are typically found in proprietary systems as a way to personalize the cryptography for a given customer, while retaining the security guarantees of the original algorithm.</p>
 <p>The colliding messages constructed can be valid archives files (RAR or 7zip) such that the content of the two archives can be fully controlled. We also build colliding JPEG files, which can be any two images, as in the example below (images were chosen at random):</p>
 <img src="img/collision.png" width=500/>
-<p>We can also construct <strong>colliding executables</strong>, which MBR (Master Boot Record) or COM files including arbitrary code. Furthermore, we present <strong>polyglot</strong> malicious SHA-1 instances, that is, for which the designer can create colliding files of different types with arbitrary content (for example: any two MBR’s, any two RAR archives, and any two shell scripts)</p>
+<p>We can also construct <strong>colliding executables</strong>, with MBR (Master Boot Record) or COM files including arbitrary code. Furthermore, we present <strong>polyglot</strong> malicious SHA-1 instances, that is, for which the designer can create colliding files of different types with arbitrary content (for example: any two MBR’s, any two RAR archives, and any two shell scripts)</p>
 <p>The Malicious SHA-1 project was presented in 2014 at the following security and cryptography conferences:</p>
 <ul>
 <li>BSidesLV (Aug 5; Las Vegas, USA)</li>
 <li>DEF CON Skytalks (Aug 9; Las Vegas, USA)</li>
-<li>Selected Areas in Cryptography a.k.a. SAC (Aug ??; ???, Canada)</li>
+<li>Selected Areas in Cryptography (Aug ??; ???, Canada)</li>
 </ul>
-<p>Implications of this research are discussed in our <a href="#faq">FAQ</a>. More details are given <a href="#details">below</a>, and a full description of our work is reported in the <a href="malsha1-yyyymmdd.pdf">research paper</a>.</p>
+<p>Implications of this research are discussed in our <a href="#faq">FAQ</a>. More details are given <a href="#details">below</a>, and a full description of our work is reported in the <a href="#downloads">research paper</a>.</p>
 <h2 id="authors">Authors</h2>
 <p>The Malicious SHA-1 project is a joint work of</p>
 <ul>
@@ -53,22 +54,18 @@
 <li><a href="">Florian Mendel</a> (Technical University Graz, Austria)</li>
 <li><a href="">Martin Schlaeffer</a> (Technical University Graz, Austria)</li>
 </ul>
-<p>with Ange being the main contributor of the exploitation part, Jean-Philippe being the main contributor of the theoretical part, and the TU Graz team being authors of the core results, namely the differential cryptanalysis part.</p>
-<div class="figure">
-<img src="" alt="LOGOS" /><p class="caption">LOGOS</p>
-</div>
+<p>with Ange being the main contributor of the exploitation part, Jean-Philippe being the main contributor of the theoretical part, and the TU Graz researchers being authors of the core results, namely the differential cryptanalysis part.</p>
 <h2 id="details">Details</h2>
-<p>The security of a cryptographic hash function such as SHA-1 relies on the practical impossibility of finding collisions, that is, distinct messages having the same hash value. Denoting the hash function <em>H</em>, a collision is thus a pair of distinct messages—not necessarily of same length—M<sub>1</sub> and M<sub>2</sub> such that <em>H</em>(M<sub>1</sub>) = <em>H</em>(M<sub>2</sub>).</p>
+<p>The security of a cryptographic hash function such as SHA-1 relies on the practical impossibility of finding collisions, that is, distinct messages having the same hash value. Denoting the hash function <em>H</em>, a collision is thus a pair of distinct messages M<sub>1</sub> and M<sub>2</sub> such that <em>H</em>(M<sub>1</sub>) = <em>H</em>(M<sub>2</sub>).</p>
 <h3 id="sha-1">SHA-1</h3>
-<p>SHA-1 is a NIST standard, designed by NSA in 1995, and used everywhere: in TLS, SSH, IPsec, etc. as part of encryption, signature, message authentication, or key derivation schemes.</p>
+<p>SHA-1 is a NIST standard designed by NSA in 1995 and used everywhere: in TLS, SSH, IPsec, etc. as part of encryption, signature, message authentication, or key derivation schemes.</p>
 <p>SHA-1 produces 160-bit hash values. Therefore a generic attack requires approximately 2<sup>80</sup> evaluations of SHA-1 to find a collision, as per the birthday paradox. Such a “birthday attack” works on any reasonable hash function regardless of its strength. Cryptographers thus say that a hash function is “broken” if one finds an attack substantially faster than the birthday attack.</p>
 <p>According to this definition, <strong>SHA-1 is broken</strong>, since public research described collision attacks more than a thousand times faster than the birthday attack. However,</p>
 <ul>
-<li>the actual complexity is unclear, but seems to be greater than 2<sup>60</sup></li>
-<li>an actual collision has yet to be published</li>
+<li>the actual complexity of collision attacks on SHA-1 is unclear, but seems to be greater than 2<sup>60</sup></li>
+<li>an actual collision for the original SHA-1 has yet to be published (found?)</li>
 </ul>
-<p>SHA-1 processes message by compressing iteratively blocks of 512 bits.</p>
-<p>The known collision attacks are <strong>differential attacks</strong>. These introduce differences in the first message block, and control the propagation of the differences thereby injected in SHA-1’s internal state in order to “correct” the disturbances thanks to a second message block and thus finally obtain a collision—an internal state now free of any difference.</p>
+<p>The known collision attacks are <strong>differential attacks</strong>. These introduce differences in the first message block—SHA-1 processes message by compressing iteratively blocks of 512 bits—and control the propagation of the differences thereby injected in SHA-1’s internal state in order to “correct” the disturbances thanks to a second message block and thus finally obtain a collision, thanks to an internal state now free of any difference.</p>
 <h3 id="backdooring">Backdooring</h3>
 <p>To construct malicious SHA-1 versions, we had to find</p>
 <ol style="list-style-type: decimal">
@@ -78,7 +75,7 @@
 <p>To find a differential characteristic, we build on previous research and sought a characteristic by linearization that minimizes the cost of construction a malicious version of SHA-1.</p>
 <p>The full characteristic used looks as follows, where we noted its respective probabilities for each of the four 20-step rounds:</p>
 <img src="img/diff.png" width=700/>
-<p>The constants modified are the 32-bit values K<sub>1</sub>, K<sub>2</sub>, K<sub>3</sub>, and K<sub>4</sub>, which are injected in steps 1-20, 21-40, 41-60, and 61-80, respectively. The arithmetic operations of SHA-1 are <strong>not modified</strong>, and the malicious versions are <strong>as strong as the original SHA-1</strong> (unless one knows the backdoor).</p>
+<p>The SHA-1 constants modified are the 32-bit values K<sub>1</sub>, K<sub>2</sub>, K<sub>3</sub>, and K<sub>4</sub>, which are injected in steps 1-20, 21-40, 41-60, and 61-80, respectively. The arithmetic operations of SHA-1 are <strong>not modified</strong>, and the malicious versions are <strong>as strong as the original SHA-1</strong> (unless, obviously, one knows the backdoor, which is at least as hard to retrieve as to break SHA-1).</p>
 <p>The construction of a malicious SHA-1 then consists in</p>
 <ol style="list-style-type: decimal">
 <li>selecting a message block, where a first subset of the block is fixed and a second subset will be modified</li>
@@ -92,26 +89,25 @@
 <p><em>H</em>(M<sub>1</sub>) = <em>H</em>(M<sub>2</sub>) = <code>1896b202 394b0aae 54526cfa e72ec5f2 42b1837e</code></p>
 <p>Contrary to theoretical attacks on the original SHA-1, our method find collisions between two <strong>1-block messages</strong>, rather than 2-block messages.</p>
 <h3 id="exploitation">Exploitation</h3>
-<p>Our basic idea to exploit our generator of malicious SHA-1’s is depicted below, where the message block M<sub>x</sub> instructs the processor unit (archive extractor, image viewer, CPU, shell interpreter, etc.) to process Payload<sub>x</sub>:</p>
+<p>Our basic idea to exploit our generator of malicious SHA-1’s is depicted below, where the message block M<sub>x</sub> instructs the processor unit (archive extractor, image viewer, CPU, command interpreter, etc.) to process Payload<sub>x</sub>:</p>
 <img src="img/payload.png" width=500/>
-<p>This is not straightforward, due to the constraints imposed</p>
+<p>However, constructing such messages is not straightforward, due to the constraints imposed by</p>
 <ul>
-<li><p>by the <strong>differential characteristics</strong>: differences (only) in the first block at predefined positions</p></li>
-<li><p>by the <strong>file formats</strong>: 4-byte “magic” signatures at offset 0 are corrupted by the differences of the characteristic used</p></li>
+<li><p>the <strong>differential characteristics</strong>: differences (only) in the first block at predefined positions</p></li>
+<li><p>the <strong>file formats</strong>: 4-byte “magic” signatures at offset 0 are corrupted by the differences of the characteristic used</p></li>
 </ul>
-<p>The constraints prevent us from finding colliding binaries for the common operating systems: PE (Windows), ELF (Linux), Mach-O (Mac).</p>
-<p>However, a number of other formats are more flexible. A straightforward example is that of two colliding shell scripts, where differences are in the commented garbage, and the subsequent bytes express a condition relative to the value of those bytes:</p>
+<p>The constraints prevent us from finding colliding binaries for the common operating systems: PE (Windows), ELF (Linux), Mach-O (Mac). Fortunately, some other formats are more flexible.</p>
+<p>A straightforward example is that of two colliding shell scripts, where differences are in the commented garbage (including non-printable byte values), and the subsequent bytes express a condition relative to the value of those bytes:</p>
 <img src="img/shell.png" width=700/>
-<p>Note that in the above shell script, we could have included any statements inside the <code>if</code> and <code>else</code>.</p>
+<p>Note that in the above shell script, we could have included any commands inside the <code>if</code> and <code>else</code> statements.</p>
 <p>We also produced colliding files of the following file formats: <strong>RAR and 7zip archives</strong> (requiring a 4-byte signature, however this doesn’t need be at offset 0) and <strong>Master Boot Records and COM executables</strong> (which don’t require a signature and can directly start with actual code).</p>
 <p>Combining all the trick used with additional ones, we created <strong>polyglot</strong> malicious SHA-1 instances, by relying on a first block that is valid with respect to different file formats. For example, we constructed a malicious SHA-1 instance for which we can build colliding files for any two payloads of MBR executables, RAR archives, or shell scripts:</p>
 <img src="img/polyglot.png" width=700/>
 <h2 id="downloads">Downloads</h2>
 <a name ="downloads"/>
 <ul>
-<li><p><a href="TBD">Research paper</a> “Malicious Hashing: Eve’s Variant of SHA-1”, published in the proceedings of Selected Areas in Cryptography</p></li>
-<li><p><a href="TBD">Slides</a> of the talk “SHA1 backdooring and exploitation” (given at BSidesLV and DEF CON Skytalks)</p></li>
-<li><p><a href="TBD">Slides</a> of the talk “Malicious Hashing: Eve’s Variant of SHA-1” (given at SAC)</p></li>
+<li><p><a href="docs/malsha1.pdf">Research paper</a> “Malicious Hashing: Eve’s Variant of SHA-1”, published in the proceedings of Selected Areas in Cryptography</p></li>
+<li><p><a href="docs/malsha1_lv.pdf">Slides</a> of the talk “SHA1 backdooring and exploitation” (given at BSidesLV and DEF CON Skytalks)</p></li>
 <li><p>Proofs-of-concept:</p>
 <ul>
 <li><p><a href="pocs/sha1mod.py">sha1mod.py</a>: a Python script that hashes a file using SHA-1 with the custom constants passed as parameter, to test the examples below</p></li>

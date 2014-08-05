@@ -36,7 +36,7 @@
 <h2 id="summary">Summary</h2>
 <p>This is the webpage of the Malicious SHA-1 project, a research project that demonstrates how the security of the <a href="http://en.wikipedia.org/wiki/SHA-1">SHA-1</a> hashing standard can be <strong>fully compromised</strong> if one slightly tweaks some of the predefined constants in the SHA-1 algorithm. That is, we show that systems using “custom” versions of SHA-1 may include backdoors exploitable by the designers. Such custom versions of cryptographic standards are typically found in proprietary systems as a way to personalize the cryptography for a given customer, while retaining the security guarantees of the original algorithm.</p>
 <p>The colliding messages constructed can be valid archives files (RAR or 7zip) such that the content of the two archives can be fully controlled. We also build colliding JPEG files, which can be any two images, as in the example below (images were chosen at random):</p>
-<img src="img/collision.png" width=500/>
+<img src="img/collision.png" width=500/> <img src="img/collision2.png" width=600/>
 <p>We can also construct <strong>colliding executables</strong>, with MBR (Master Boot Record) or COM files including arbitrary code. Furthermore, we present <strong>polyglot</strong> malicious SHA-1 instances, that is, for which the designer can create colliding files of different types with arbitrary content (for example: any two MBR’s, any two RAR archives, and any two shell scripts)</p>
 <p>The Malicious SHA-1 project was presented in 2014 at the following security and cryptography conferences:</p>
 <ul>

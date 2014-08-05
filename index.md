@@ -43,6 +43,7 @@ We also build colliding JPEG files, which can be any two images, as in
 the example below (images were chosen at random): 
 
 <img src="img/collision.png" width=500/>
+<img src="img/collision2.png" width=600/>
 
 We can also construct **colliding executables**, with MBR (Master Boot
 Record) or COM files including arbitrary code.

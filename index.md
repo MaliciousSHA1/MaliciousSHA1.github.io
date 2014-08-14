@@ -239,18 +239,22 @@ For example, we constructed a malicious SHA-1 instance for which we can build co
       using SHA-1 with the custom constants passed as parameter, to test
       the examples below
 
-    - [eve1.sh](pocs/eve1.sh) and [eve2.sh](pocs/eve2.sh) both hash to
+    - [eve1.sh](pocs/sh/eve1.sh) and [eve2.sh](pocs/sh/eve2.sh) both hash to
       <code>96ed59be 04518a27 c30f17de 6f0037f9 b3c3257e</code> with
       constants <code>5a827999 88e8ea68 578059de 54324a39</code>
 
-    - [evil.rar](pocs/evil.rar) and [good.rar](pocs/good.rar) both hash
+    - [evil.rar](pocs/rar/evil.rar) and [good.rar](pocs/rar/good.rar) both hash
       to <code>4a5becf2 81706442 078879ed dd67bfdc d184a38a</code> with
       constants <code>5a827999 9cd32678 f6fc8a1a b0ec4050</code>
 
-    - [prefix1](pocs/prefix1) and [prefix2](pocs/prefix2) are valid
-      first blocks for MBR, RAR, and shell scripts files. It hashes to
+    - [shmbrar0.block](pocs/sh_mbr_rar/shmbrar0.block) and
+      [shmbrar1.block](pocs/sh_mbr_rar/shmbrar1.block) are valid
+      first blocks for MBR, RAR, and shell scripts files. They hash to
       <code>488944e0 957fb5ae 2105937a 45eaaed9 29ef1671</code> with
       constants <code>5a827999 82b1c71a 5141963a b389abb9</code>
+
+    - [pocs.zip](pocs/pocs.zip) with all examples, including complete JPG-RAR
+      polyglots and SH-MBR-RAR polyglots
 
 
 ## FAQ

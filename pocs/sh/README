@@ -1,0 +1,16 @@
+A collision for malicious SHA-1
+created by Maria Eichlseder & Malicious SHA-1 project
+
+eve1.sh and eve2.sh are bash shell scripts
+
+with the common hash value
+96ED59BE 04518A27 C30F17DE 6F0037F9 B3C3257E
+
+for SHA-1 with the following modified round constants:
+K0 = 5A827999
+K1 = 88E8EA68
+K2 = 578059DE
+K3 = 54324A39
+
+test with 'python2 ../sha1mod.py eve1.sh 5A827999 88E8EA68 578059DE 54324A39' etc
+

@@ -1,0 +1,26 @@
+A polyglot collision for malicious SHA-1
+created by Ange Albertini & Malicious SHA-1 project
+
+ * jpgrar*.jpg is a jpeg image file
+   jpgrar*.rar is a rar archive file
+
+   test with your favourite image viewer / archive extractor
+
+
+ * jpgrar*.jpg is identical to jpgrar*.rar
+
+   test with 'diff jpgrar0.*' etc
+
+ 
+ * jpgrar0.* collides with jpgrar1.*
+
+   with the common hash value
+   6F564017 EDED4203 5E3F4649 E828E026 D0AEAE08
+
+   for SHA-1 with the following modified round constants:
+   K0 = 5A827999
+   K1 = 4EB9D7F7
+   K2 = BAD18E2F
+   K3 = D79E5877
+
+   test with 'python2 ../sha1mod.py jpgrar0.jpg 5A827999 4EB9D7F7 BAD18E2F D79E5877' etc

@@ -1,0 +1,31 @@
+A polyglot collision for malicious SHA-1
+created by Ange Albertini, Maria Eichlseder & Malicious SHA-1 project
+
+ * shmbrar*.sh is a bash shell script
+   shmbrar*.mbr is a master boot record
+   shmbrar*.rar is a rar archive file
+
+   test with 'sh shmbrar0.sh' / 'qemu-system-i386 -fda shmbrar0.mbr' / your favourite archive extractor 
+
+
+ * shmbrar*.sh is identical to shmbrar*.mbr and to shmbrar*.rar
+
+   test with 'diff shmbrar0.sh shmbrar0.mbr' etc
+
+ 
+ * shmbrar0.* collides with shmbrar1.*
+
+   with the common hash value
+   E9E8D32A DF50FAA1 23604A64 2BC322A9 57B0E41E
+
+   for SHA-1 with the following modified round constants:
+   K0 = 5A827999
+   K1 = 82B1C71A
+   K2 = 5141963A
+   K3 = B389ABB9
+
+   test with 'python2 ../sha1mod.py shmbrar0.rar 5A827999 82B1C71A 5141963A B389ABB9' etc
+
+
+ * shmbrar0.* and shmbrar1.* differ only in the first block (64 bytes).
+   shmbrar*.block contains just these blocks and can be extended to any other colliding rar/mbr/sh file pair.

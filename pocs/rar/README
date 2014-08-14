@@ -1,0 +1,16 @@
+A collision for malicious SHA-1
+created by Ange Albertini & Malicious SHA-1 project
+
+evil.rar and good.rar are rar archive files
+
+with the common hash value
+4A5BECF2 81706442 078879ED DD67BFDC D184A38A
+
+for SHA-1 with the following modified round constants:
+K0 = 5A827999
+K1 = 9CD32678
+K2 = F6FC8A1A
+K3 = B0EC4050
+
+test with 'python2 ../sha1mod.py good.rar 5A827999 9CD32678 F6FC8A1A B0EC4050' etc
+

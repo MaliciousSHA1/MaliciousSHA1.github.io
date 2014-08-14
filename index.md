@@ -230,7 +230,7 @@ For example, we constructed a malicious SHA-1 instance for which we can build co
 * [Research paper](doc/malsha1.pdf) "Malicious Hashing: Eve's Variant of SHA-1",
   published in the proceedings of Selected Areas in Cryptography
 
-* [Slides](doc/malsha1_lv.pdf) of the talk "SHA1 backdooring and exploitation" (given at
+* [Slides](doc/malsha1_lv.pdf) and [video](https://www.youtube.com/watch?v=GHY3dv42dz4) of the talk "SHA1 backdooring and exploitation" (given at
   BSidesLV and DEF CON Skytalks)
 
 * Proofs-of-concept:
@@ -268,14 +268,39 @@ tell).
 
 We believe this is unlikely, for
 
-1. Our results rely on state-of-the-art differential cryptanalysis
+
+1. The original SHA-1 constants are “nothing-up-my-sleeve-numbers“, derived from
+the binary representation of the square roots of 2, 3, 5 and 10. Choosing
+natural constants or other “meaningful numbers“ significantly reduces the
+available freedom and leaves little room for adjustment in an attack. However,
+this does not completely eliminate the possibility of backdoors, since there are
+several other ingredients in the algorithm to fiddle around with for more
+entropy: choice and structure of operations (SHA-1 features different binary
+functions in different rounds), rotation values, etc.
+
+2. Our results rely on state-of-the-art differential cryptanalysis
 research, as of 2014, based on techniques that were only publicly
 developed since around 2004
 
-2. Just before SHA-1, NSA designed SHA-0, for which weaknesses were
+3. Just before SHA-1, NSA designed SHA-0, for which weaknesses were
 quickly identified by the research community and actual collisions
 presented later, in 1998; this negligence does not suggest extraordinary
 cryptanalysis abilities from NSA back then
+
+
+### How are the modified constants weaker?
+
+They aren’t.
+
+Unlike operational parameters such as rotation values, the exact values of the
+round constants we modify do not have a direct impact on the security of the
+hash function (although there are some values that would weaken the algorithm by
+introducing undesirable statistical properties, for example choosing all 0s).
+
+Our attack only exploits the fact that the designer has freedom in choosing the
+constants, not any particular weaknesses. To third party analysis, malicious
+SHA-1 remains as strong as the original SHA-1: the backdoor is “undiscoverable“,
+it can only be exploited by the designer.
 
 
 ### Can you do the same for SHA-256?

@@ -108,7 +108,7 @@ href="mailto:malicioussha1@131002.net">malicioussha1@131002.net</a>.</p>
 <a name ="downloads"/>
 <ul>
 <li><p><a href="doc/malsha1.pdf">Research paper</a> “Malicious Hashing: Eve’s Variant of SHA-1”, published in the proceedings of Selected Areas in Cryptography</p></li>
-<li><p><a href="doc/malsha1_lv.pdf">Slides</a> of the talk “SHA1 backdooring and exploitation” (given at BSidesLV and DEF CON Skytalks)</p></li>
+<li><p><a href="doc/malsha1_lv.pdf">Slides</a> and <a href="https://www.youtube.com/watch?v=GHY3dv42dz4">video</a> of the talk “SHA1 backdooring and exploitation” (given at BSidesLV and DEF CON Skytalks)</p></li>
 <li><p>Proofs-of-concept:</p>
 <ul>
 <li><p><a href="pocs/sha1mod.py">sha1mod.py</a>: a Python script that hashes a file using SHA-1 with the custom constants passed as parameter, to test the examples below</p></li>
@@ -124,9 +124,14 @@ href="mailto:malicioussha1@131002.net">malicioussha1@131002.net</a>.</p>
 <h3 id="did-nsa-use-this-trick-when-creating-sha-1-in-1995">Did NSA use this trick when creating SHA-1 in 1995?</h3>
 <p>We believe this is unlikely, for</p>
 <ol style="list-style-type: decimal">
+<li><p>The original SHA-1 constants are “nothing-up-my-sleeve-numbers“, derived from the binary representation of the square roots of 2, 3, 5 and 10. Choosing natural constants or other “meaningful numbers“ significantly reduces the available freedom and leaves little room for adjustment in an attack. However, this does not completely eliminate the possibility of backdoors, since there are several other ingredients in the algorithm to fiddle around with for more entropy: choice and structure of operations (SHA-1 features different binary functions in different rounds), rotation values, etc. </p></li>
 <li><p>Our results rely on state-of-the-art differential cryptanalysis research, as of 2014, based on techniques that were only publicly developed since around 2004</p></li>
 <li><p>Just before SHA-1, NSA designed SHA-0, for which weaknesses were quickly identified by the research community and actual collisions presented later, in 1998; this negligence does not suggest extraordinary cryptanalysis abilities from NSA back then</p></li>
 </ol>
+<h3 id="weak-constants">How are the modified constants weaker?</h3>
+<p>They aren’t.</p>
+<p>Unlike operational parameters such as rotation values, the exact values of the round constants we modify do not have a direct impact on the security of the hash function (although there are some values that would weaken the algorithm by introducing undesirable statistical properties, for example choosing all 0s).</p>
+<p>Our attack only exploits the fact that the designer has freedom in choosing the constants, not any particular weaknesses. To third party analysis, malicious SHA-1 remains as strong as the original SHA-1: the backdoor is “undiscoverable“, it can only be exploited by the designer.</p>
 <h3 id="can-you-do-the-same-for-sha-256">Can you do the same for SHA-256?</h3>
 <p>Not at the moment.</p>
 <p><a href="http://en.wikipedia.org/wiki/SHA-2">SHA-256</a> is a much different case, for</p>
@@ -136,6 +141,6 @@ href="mailto:malicioussha1@131002.net">malicioussha1@131002.net</a>.</p>
 </ol>
 <hr/>
 
-<p><em>modified: 2014-08-05</em></p>
+<p><em>modified: 2014-08-14</em></p>
 </body>
 </html>

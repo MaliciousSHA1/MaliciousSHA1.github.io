@@ -227,8 +227,8 @@ For example, we constructed a malicious SHA-1 instance for which we can build co
 ## Downloads
 <a name ="downloads"/>
 
-* [Research paper](doc/malsha1.pdf) "Malicious Hashing: Eve's Variant of SHA-1",
-  published in the proceedings of Selected Areas in Cryptography
+* [Research paper](http://eprint.iacr.org/2014/694) "Malicious Hashing: Eve's Variant of SHA-1",
+  an extended version of the paper published in the proceedings of Selected Areas in Cryptography (SAC 2014)
 
 * [Slides](doc/malsha1_lv.pdf) and [video](https://www.youtube.com/watch?v=GHY3dv42dz4) of the talk "SHA1 backdooring and exploitation" (given at
   BSidesLV and DEF CON Skytalks)
